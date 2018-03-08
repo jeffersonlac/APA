@@ -1,10 +1,10 @@
 # APA
 
-O algoritmo desejado deve ser compilado com o GCC utilizando os seguintes comandos:
-"g++ -c *.cpp"
-"g++ -o nomeSaida.exe *.o"
+O algoritmo desejado deve ser compilado com o GCC utilizando os seguintes comandos:\n
+"g++ -c *.cpp" \n
+"g++ -o nomeSaida.exe *.o" \n
 
-Já para rodar o seguinte comando deve ser executado:
+Já para executar o programa, o seguinte comando deve ser utilizado: \n
  "nomeSaida.exe arg1 arg2 arg3"
 Onde:
  - arg1 é o caminho para o arquivo de entrada a ser ordenado incluindo o nome do arquivo (os números devem estar separados por quebra de linha);
