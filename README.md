@@ -3,8 +3,9 @@
 O algoritmo desejado deve ser compilado com o GCC utilizando os seguintes comandos:
 
 "g++ -c *.cpp"
+"g++ -o nomeSaida.exe *.o" 
 
-"g++ -o nomeSaida.exe *.o"
+=========================================================================
 
 Já para executar o programa, o seguinte comando deve ser utilizado:
 
