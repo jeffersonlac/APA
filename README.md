@@ -1,9 +1,6 @@
 # APA
 
-O algoritmo desejado deve ser compilado com o GCC utilizando os seguintes comandos:
-
-"g++ -c *.cpp"
-"g++ -o nomeSaida.exe *.o" 
+O algoritmo desejado deve ser compilado com o comando make.
 
 =========================================================================
 
