@@ -35,7 +35,7 @@ int QuickSort::loadFile(void)
 	return 1;
 };
 
-int QuickSort::separa(int comeco, int fim)
+int QuickSort::separaCre(int comeco, int fim)
 {
 	int pivo = this->lista[(comeco+fim)/2], i = comeco, j = fim;
 	
@@ -56,13 +56,38 @@ int QuickSort::separa(int comeco, int fim)
 		}
 };
 
+int QuickSort::separaDec(int comeco, int fim)
+{
+	int pivo = this->lista[(comeco+fim)/2], i = comeco, j = fim;
+	
+		while(true)
+		{
+			while(this->lista[i] > pivo)
+				i++;
+			while(this->lista[j] < pivo)
+				j--;
+			if(i >= j)
+				return j;
+			
+			int aux = this->lista[i];
+			this->lista[i] = this->lista[j];
+			this->lista[j] = aux;
+			
+			i++; j--;
+		}
+};
+
 int QuickSort::ordena(vector<int> &l, int comeco, int fim)
 {
 	this->lista = l;
 	
 	if(comeco < fim)
 	{
-		int p = this->separa(comeco, fim);
+		int p;
+		if(this->sentido)
+			p = this->separaCre(comeco, fim);
+		else
+			p = this->separaDec(comeco, fim);
 		this->ordena(this->lista, comeco, p);
 		this->ordena(this->lista, p+1, fim);
 	}

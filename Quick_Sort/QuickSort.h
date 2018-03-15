@@ -20,7 +20,8 @@ public:
 	vector<int>& getLista(void);
 	int getTam(void);
 	int loadFile(void);
-	int separa(int comeco, int fim);
+	int separaCre(int comeco, int fim);
+	int separaDec(int comeco, int fim);
 	int ordena(vector<int> &l, int comeco, int fim);
 	int saveFile(void);
 };
