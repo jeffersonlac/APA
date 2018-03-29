@@ -14,17 +14,12 @@ class CountingSort
 {
 	std::vector<int> listaIn;
 	std::vector<int> listaOut;
-	char* fileIn;
-	char* fileOut;
-	int sentido;
 public:
 	CountingSort();
-	CountingSort(char** argv);
-	int loadFile(void);
-	int encontraMax(vector<int> l);
-	int encontraMin(vector<int> l);
-	int ordena(void);
-	int saveFile(void);
+	CountingSort(vector<int> l);
+	int encontraMax(vector<int> &l);
+	int encontraMin(vector<int> &l);
+	vector<int> ordena(vector<int> l);
 };
 
 #endif

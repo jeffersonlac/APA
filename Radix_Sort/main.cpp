@@ -4,7 +4,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-	RadixSort CS(argv);
+	RadixSort RS(argv);
     
 	RS.loadFile();
 	RS.ordena();

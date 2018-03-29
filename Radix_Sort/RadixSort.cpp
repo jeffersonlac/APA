@@ -16,43 +16,35 @@ int RadixSort::loadFile(void)
 		while(!FILE.eof())
 		{
 			getline(FILE, linha);
-			this->listaIn.push_back(atoi(linha.c_str()));
+			this->lista.push_back(atoi(linha.c_str()));
 		}
-		this->listaIn.pop_back();
-		this->listaOut = vector<int>(this->listaIn.size());
+		this->lista.pop_back();
 		FILE.close();
 	}
 	
 	return 1;
 };
 
-int RadixSort::encontraMax(vector<int> l)
+int RadixSort::encontraMax(void)
 {
-	return *(max_element(l.begin(), l.end()));
-};
-
-int RadixSort::encontraMin(vector<int> l)
-{
-	return *(min_element(l.begin(), l.end()));
+	return *(max_element(this->lista.begin(), this->lista.end()));
 };
 
 int RadixSort::ordena(void)
 {
-	int max = this->encontraMax(this->listaIn);
-	int min = this->encontraMin(this->listaIn);
-	vector<int> listaAux (max - min + 1, 0);
-	cout << "minimo: " << min << endl;
-	
-	for(int i = 0; i <= this->listaIn.size(); i++)
-		listaAux[this->listaIn[i]-min]++;
-	
-	partial_sum(listaAux.begin(), listaAux.end(), listaAux.begin());
-	
-	for(vector<int>::iterator i = this->listaIn.end(); i != this->listaIn.begin(); i--)
+	int exp = 1;
+	int maior = this->encontraMax();
+	while(maior/exp > 0)
 	{
-		this->listaOut[listaAux[*i - min]] = *i;
-		listaAux[*i - min]--;
-	};
+		vector<int> listaAux (this->lista.size());
+		for(int i = 0; i < this->lista.size(); i++)
+			listaAux[i] = (this->lista[i] / exp) % 10;
+		
+		CountingSort CS(listaAux);
+		this->lista = CS.ordena(this->lista);
+		
+		exp *= 10;
+	}
 };
 
 int RadixSort::saveFile(void)
@@ -60,7 +52,7 @@ int RadixSort::saveFile(void)
 	fstream FILE(this->fileOut, ofstream::out);
 	if(FILE.is_open())
 	{
-		for(vector<int>::iterator i = this->listaOut.begin(); i != this->listaOut.end(); i++)
+		for(vector<int>::iterator i = this->lista.begin(); i != this->lista.end(); i++)
 		{
 			FILE << *i << endl;
 		}
