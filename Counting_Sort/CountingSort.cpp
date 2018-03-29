@@ -43,7 +43,7 @@ int CountingSort::ordena(void)
 	vector<int> listaAux (max - min + 1, 0);
 	cout << "minimo: " << min << endl;
 	
-	for(int i = 0; i <= this->listaIn.size(); i++)
+	for(int i = 0; i < this->listaIn.size(); i++)
 		listaAux[this->listaIn[i]-min]++;
 	
 	partial_sum(listaAux.begin(), listaAux.end(), listaAux.begin());

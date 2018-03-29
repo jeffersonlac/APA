@@ -7,3 +7,4 @@ RadixSort.o: RadixSort.cpp RadixSort.h CountingSort.cpp CountingSort.h main.cpp
 clean:
 	del *.o
 	del RadixSort.exe
+	del *.out
