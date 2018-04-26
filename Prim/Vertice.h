@@ -1,0 +1,22 @@
+#ifndef VERTICE_H
+#define VERTICE_H
+
+using namespace std;
+
+class Vertice
+{
+	int id;
+	int chave;
+	Vertice* pai;
+public:
+	Vertice();
+	Vertice(int i, int c, Vertice* p);
+	int get_id(void);
+	int get_chave(void);
+	Vertice* get_pai(void);
+	void set_id(int i);
+	void set_chave(int c);
+	void set_pai(Vertice* p);
+};
+
+#endif
