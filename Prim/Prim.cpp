@@ -89,6 +89,7 @@ void Prim::MST_Prim(void)
 		}
 	}
 	
+	///////////////////////////////////////////////////////////////////////////
 	sort(this->arestas.begin(), this->arestas.end(), comp);
 	
 	for(int i = 0; i < this->arestas.size(); i++)

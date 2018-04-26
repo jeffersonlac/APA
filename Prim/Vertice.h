@@ -17,6 +17,7 @@ public:
 	Vertice* get_pai(void);
 	void set_id(int i);
 	void set_chave(int c);
+	int get_tam_adj(void);
 	void add_adj(Vertice* v);
 	void set_pai(Vertice* p);
 };

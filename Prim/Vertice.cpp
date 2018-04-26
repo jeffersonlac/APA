@@ -34,6 +34,11 @@ void Vertice::set_chave(int c)
 	this->chave = c;
 };
 
+int Vertice::get_tam_adj(void)
+{
+	return this->adjacencias.size();
+};
+
 void Vertice::add_adj(Vertice* v)
 {
 	this->adjacencias.push_back(v);
