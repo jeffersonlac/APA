@@ -1,0 +1,2 @@
+.\dij40.txt
+Resultado: 26208
