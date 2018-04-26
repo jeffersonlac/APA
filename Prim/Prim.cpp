@@ -40,7 +40,9 @@ int Prim::loadFile(void)
 					pos_i = pos_f;
 					Vertice v1, v2;
 					v1.set_id(i);
+					v1.add_adj(&v2);
 					v2.set_id(j);
+					v2.add_adj(&v1);
 					Aresta a(v1, v2, this->matriz[i][j]);
 					this->arestas.push_back(a);
 				}
@@ -81,7 +83,10 @@ void Prim::MST_Prim(void)
 	{
 		Vertice u = *min_element(q.begin(), q.end());
 		q.erase(min_element(q.begin(), q.end()));
-		for(int i = 0; )
+		for(int i = 0; i < u.get_tam_adj(); i++)
+		{
+			if(u[i])
+		}
 	}
 	
 	sort(this->arestas.begin(), this->arestas.end(), comp);

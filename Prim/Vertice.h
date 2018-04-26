@@ -7,6 +7,7 @@ class Vertice
 {
 	int id;
 	int chave;
+	vector<*Vertice> adjacencias;
 	Vertice* pai;
 public:
 	Vertice();
@@ -16,6 +17,7 @@ public:
 	Vertice* get_pai(void);
 	void set_id(int i);
 	void set_chave(int c);
+	void add_adj(Vertice* v);
 	void set_pai(Vertice* p);
 };
 

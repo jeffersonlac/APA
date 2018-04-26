@@ -34,6 +34,11 @@ void Vertice::set_chave(int c)
 	this->chave = c;
 };
 
+void Vertice::add_adj(Vertice* v)
+{
+	this->adjacencias.push_back(v);
+};
+
 void Vertice::set_pai(Vertice* p)
 {
 	this->pai = p;
