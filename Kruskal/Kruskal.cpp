@@ -83,7 +83,6 @@ void Kruskal::MST_KRUSKAL(void)
 					set[j] = set[this->arestas[i].get_no_1()];
 				
 			}
-			cout << endl;
 		}
 	}
 	
@@ -92,5 +91,8 @@ void Kruskal::MST_KRUSKAL(void)
 void Kruskal::calcResultado(void)
 {
 	for(int i = 0; i < this->arvore.size(); i++)
+	{
 		this->resultado += this->arvore[i].get_peso();
+		cout << this->arvore[i].get_peso() << endl;
+	}
 };
