@@ -1,10 +1,12 @@
 #ifndef Prim_H
 #define Prim_H
+#define __STDC_LIMIT_MACROS
 
 #include <iostream>
 #include <fstream>
 #include <vector>
 #include <cstdlib>
+#include <cstdint>
 #include <algorithm>
 
 #include "Aresta.h"

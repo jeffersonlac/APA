@@ -1,8 +1,19 @@
 #include "Prim.h"
 
-bool comp (Aresta a1, Aresta a2)
+Vertice* buscaVerticePorId(vector<Vertice> &lista, int ind)
 {
-	return (a1.get_peso() < a2.get_peso());
+	for(int i = 0; i < lista.size(); i++)
+		if(lista[i].get_id() == ind)
+			return &lista[i];
+	return nullptr;
+}
+
+Aresta* buscaArestaPorNos(vector<Aresta> &lista, Vertice n1, Vertice n2)
+{
+	for(int i = 0; i < lista.size(); i++)
+		if((lista[i].get_no_1().get_id() == n1.get_id() && lista[i].get_no_2().get_id() == n2.get_id()) || (lista[i].get_no_2().get_id() == n1.get_id() && lista[i].get_no_1().get_id() == n2.get_id()))
+			return &lista[i];
+	return nullptr;
 }
 
 Prim::Prim(char** argv)
@@ -38,15 +49,24 @@ int Prim::loadFile(void)
 					pos_f = linha.find('	', pos_f+1);
 					this->matriz[i][j] = stoi(linha.substr(pos_i, pos_f-pos_i));
 					pos_i = pos_f;
-					Vertice v1, v2;
-					v1.set_id(i);
-					v1.add_adj(&v2);
-					v2.set_id(j);
-					v2.add_adj(&v1);
-					Aresta a(v1, v2, this->matriz[i][j]);
-					this->arestas.push_back(a);
 				}
 			}
+		}
+		
+		for(int i = 0; i < this->qtd_nos; i++)
+		{
+			Vertice v1;
+			v1.set_id(i);
+			for(int j = 0; j < this->qtd_nos; j++)
+			{
+				this->matriz[j][i] = matriz[i][j];
+				Vertice v2;
+				v2.set_id(j);
+				v1.add_adj(v2);
+				Aresta a(v1, v2, this->matriz[i][j]);
+				this->arestas.push_back(a);
+			}
+			this->vertices.push_back(v1);
 		}
 		
 		FILE.close();
@@ -71,50 +91,48 @@ void Prim::MST_Prim(void)
 {
 	for(int i = 0; i < this->vertices.size(); i++)
 	{
-		this->vertices[i].set_chave(INT_MAX);
+		this->vertices[i].set_chave(INT32_MAX);
 		this->vertices[i].set_pai(nullptr);
 	}
 	
 	this->vertices[0].set_chave(0);
-	
+
 	vector<Vertice> q = this->vertices;
-	
+
 	while(q.size() > 0)
 	{
-		Vertice u = *min_element(q.begin(), q.end());
-		q.erase(min_element(q.begin(), q.end()));
-		for(int i = 0; i < u.get_tam_adj(); i++)
+		/////////extrair mínimo
+		auto min = min_element( q.begin(), q.end(), []( const Vertice &a, const Vertice &b ){return a.get_chave() < b.get_chave();});
+		Vertice u = *min;
+		q.erase(min);
+		/////////extrair mínimo
+		vector<Vertice> adj = u.get_adj();
+		for(int i = 0; i < adj.size(); i++)
 		{
-			if(u[i])
-		}
-	}
-	
-	///////////////////////////////////////////////////////////////////////////
-	sort(this->arestas.begin(), this->arestas.end(), comp);
-	
-	for(int i = 0; i < this->arestas.size(); i++)
-	{
-		if(set[this->arestas[i].get_no_1()] != set[this->arestas[i].get_no_2()])
-		{
-			this->arvore.push_back(arestas[i]);
-			c = set[this->arestas[i].get_no_2()];
-			set[this->arestas[i].get_no_2()] = set[this->arestas[i].get_no_1()];
-			for(int j = 0; j < this->qtd_nos; j++)
+			Vertice* z = buscaVerticePorId(q, adj[i].get_id());
+			if(z != nullptr)
 			{
-				if(set[j] == c)
-					set[j] = set[this->arestas[i].get_no_1()];
-				
+				Vertice* v = buscaVerticePorId(this->vertices, adj[i].get_id());
+				Aresta* a = buscaArestaPorNos(this->arestas, u, *v);
+				if(a != nullptr)
+				{
+					if(a->get_peso() < v->get_chave())
+					{
+						z->set_pai(&u);
+						z->set_chave(a->get_peso());
+						v->set_pai(&u);
+						v->set_chave(a->get_peso());
+					}
+				}
 			}
 		}
 	}
-	
 };
 
 void Prim::calcResultado(void)
-{
-	for(int i = 0; i < this->arvore.size(); i++)
+{	
+	for(int i = 0; i < this->vertices.size(); i++)
 	{
-		this->resultado += this->arvore[i].get_peso();
-		cout << this->arvore[i].get_peso() << endl;
+		this->resultado += this->vertices[i].get_chave();
 	}
 };

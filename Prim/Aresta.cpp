@@ -1,5 +1,7 @@
 #include "Aresta.h"
 
+Aresta::Aresta(){};
+
 Aresta::Aresta(Vertice n1, Vertice n2, int p)
 {
 	this->no_1 = n1;

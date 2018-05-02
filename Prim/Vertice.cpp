@@ -9,12 +9,12 @@ Vertice::Vertice(int i, int c, Vertice* p)
 	this->pai = p;
 };
 
-int Vertice::get_id(void)
+int Vertice::get_id(void) const
 {
 	return this->id;
 };
 
-int Vertice::get_chave(void)
+int Vertice::get_chave(void) const
 {
 	return this->chave;
 };
@@ -34,12 +34,12 @@ void Vertice::set_chave(int c)
 	this->chave = c;
 };
 
-int Vertice::get_tam_adj(void)
+vector<Vertice> Vertice::get_adj(void)
 {
-	return this->adjacencias.size();
+	return this->adjacencias;
 };
 
-void Vertice::add_adj(Vertice* v)
+void Vertice::add_adj(Vertice v)
 {
 	this->adjacencias.push_back(v);
 };
