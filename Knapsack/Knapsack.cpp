@@ -27,8 +27,6 @@ int Knapsack::loadFile(void)
 
 int Knapsack::calcula(void)
 {
-	W, int wt[], int b[], int n)
-{
 	// tabela que será preenchida
 	int V[n + 1][W + 1];
 
