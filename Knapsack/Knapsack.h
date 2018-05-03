@@ -10,15 +10,17 @@ using namespace std;
 
 class Knapsack
 {
-	std::vector<int> lista;
+	int qtd_instancias;
+	int capacidade_mochila;
+	vector<int> pesos;
+	vector<int> valor;
 	char* fileIn;
 	char* fileOut;
-	int sentido;
 public:
 	Knapsack();
 	Knapsack(char** argv);
 	int loadFile(void);
-	int maxValue(void);
+	int calcula(void);
 	int saveFile(void);
 };
 

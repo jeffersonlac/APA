@@ -25,38 +25,39 @@ int Knapsack::loadFile(void)
 	return 1;
 };
 
-int Knapsack::ordena(void)
+int Knapsack::calcula(void)
 {
-	if(this->sentido)
+	W, int wt[], int b[], int n)
+{
+	// tabela que será preenchida
+	int V[n + 1][W + 1];
+
+	// inicializando a primeira linha e primeira coluna com 0
+	for(int w = 0; w <= W; w++)
+		V[0][w] = 0;
+	for(int i = 1; i <= n; i++)
+		V[i][0] = 0;
+
+	for(int i = 1; i <= n; i++)
 	{
-		int eleito;
-		for(int i = 1; i < this->lista.size(); i++)
-		{
-			int novoIndice = i;
-			eleito = this->lista[i];
-			for(int j = i-1; (j >= 0) && (eleito < this->lista[j]); j--)
+		for(int w = 1; w <= W; w++)
+		{	
+			// elemento pode fazer parte da solução
+			if(wt[i - 1] <= w)
 			{
-				this->lista[j+1] = this->lista[j];
-				novoIndice = j;
+				// max...
+				if((b[i - 1] + V[i - 1][w - wt[i - 1]]) > V[i - 1][w])
+					V[i][w] = b[i - 1] + V[i - 1][w - wt[i - 1]];
+				else
+					V[i][w] = V[i - 1][w];
 			}
-			this->lista[novoIndice] = eleito;
+			else
+				V[i][w] = V[i - 1][w]; // wi > w
 		}
 	}
-	else
-	{
-		int eleito;
-		for(int i = 1; i < this->lista.size(); i++)
-		{
-			int novoIndice = i;
-			eleito = this->lista[i];
-			for(int j = i-1; (j >= 0) && (eleito > this->lista[j]); j--)
-			{
-				this->lista[j+1] = this->lista[j];
-				novoIndice = j;
-			}
-			this->lista[novoIndice] = eleito;
-		}
-	}
+
+	// retorna o valor máximo colocado na mochila
+	return V[n][W];
 };
 
 int Knapsack::saveFile(void)

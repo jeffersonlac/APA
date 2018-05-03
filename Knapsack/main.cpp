@@ -7,7 +7,7 @@ int main(int argc, char** argv)
 	Knapsack KS(argv);
     
 	KS.loadFile();
-	KS.ordena();
+	KS.calcula();
 	KS.saveFile();
     
 	return 0;
