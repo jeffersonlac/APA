@@ -12,8 +12,10 @@ class Knapsack
 {
 	int qtd_instancias;
 	int capacidade_mochila;
+	int max;
 	vector<int> pesos;
 	vector<int> valor;
+	vector<int> itens_selecionados;
 	char* fileIn;
 	char* fileOut;
 public:
