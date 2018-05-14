@@ -1,6 +1,5 @@
 #ifndef Prim_H
 #define Prim_H
-#define __STDC_LIMIT_MACROS
 
 #include <iostream>
 #include <fstream>
@@ -8,6 +7,7 @@
 #include <cstdlib>
 #include <cstdint>
 #include <algorithm>
+#include <queue>
 
 #include "Aresta.h"
 #include "Vertice.h"
@@ -18,7 +18,6 @@ class Prim
 {
 	vector< vector<int> > matriz;
 	vector<Aresta> arestas;
-	vector<Aresta> arvore;
 	vector<Vertice> vertices;
 	int qtd_nos;
 	int resultado;

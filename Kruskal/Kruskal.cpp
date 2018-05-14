@@ -2,7 +2,7 @@
 
 bool comp (Aresta a1, Aresta a2)
 {
-	return (a1.get_peso() < a2.get_peso());
+	return (a1.get_peso() <= a2.get_peso());
 }
 
 Kruskal::Kruskal(char** argv)
@@ -91,8 +91,5 @@ void Kruskal::MST_KRUSKAL(void)
 void Kruskal::calcResultado(void)
 {
 	for(int i = 0; i < this->arvore.size(); i++)
-	{
 		this->resultado += this->arvore[i].get_peso();
-		cout << this->arvore[i].get_peso() << endl;
-	}
 };

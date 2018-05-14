@@ -12,12 +12,12 @@ class Aresta
 	int peso;
 public:
 	Aresta();
-	Aresta(Vertice n1, Vertice n2, int p);
+	Aresta(Vertice& n1, Vertice& n2, int p);
 	Vertice get_no_1(void);
 	Vertice get_no_2(void);
 	int get_peso(void);
-	void set_no_1(Vertice v);
-	void set_no_2(Vertice v);
+	void set_no_1(Vertice& v);
+	void set_no_2(Vertice& v);
 	void set_peso(int valor);
 };
 

@@ -1,13 +1,5 @@
 #include "Dijkstra.h"
 
-Vertice* buscaVerticePorId(vector<Vertice> &lista, int ind)
-{
-	for(int i = 0; i < lista.size(); i++)
-		if(lista[i].get_id() == ind)
-			return &lista[i];
-	return nullptr;
-}
-
 Aresta* buscaArestaPorNos(vector<Aresta> &lista, Vertice& n1, Vertice& n2)
 {
 	for(int i = 0; i < lista.size(); i++)
@@ -16,7 +8,7 @@ Aresta* buscaArestaPorNos(vector<Aresta> &lista, Vertice& n1, Vertice& n2)
 	return nullptr;
 }
 
-class meuComparador {
+class comparaVerticePorChave {
 public:
     int operator() (Vertice* v1, Vertice* v2)
     {
@@ -100,7 +92,7 @@ int Dijkstra::saveFile(void)
 
 void Dijkstra::CM_Dijkstra(void)
 {
-	priority_queue < Vertice*, vector<Vertice*>, meuComparador > q;
+	priority_queue < Vertice*, vector<Vertice*>, comparaVerticePorChave > q;
 	
 	this->vertices[0].set_chave(0);
 	q.push(&this->vertices[0]);
@@ -133,7 +125,7 @@ void Dijkstra::CM_Dijkstra(void)
 			{
 				v->set_chave((*u).get_chave() + a->get_peso());
 				v->set_pai(u);
-				make_heap(const_cast<Vertice**>(&q.top()), const_cast<Vertice**>(&q.top()) + q.size(), meuComparador());
+				make_heap(const_cast<Vertice**>(&q.top()), const_cast<Vertice**>(&q.top()) + q.size(), comparaVerticePorChave());
 			}
 		}
 	}
