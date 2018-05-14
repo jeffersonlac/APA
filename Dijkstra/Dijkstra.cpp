@@ -8,13 +8,21 @@ Vertice* buscaVerticePorId(vector<Vertice> &lista, int ind)
 	return nullptr;
 }
 
-Aresta* buscaArestaPorNos(vector<Aresta> &lista, Vertice n1, Vertice n2)
+Aresta* buscaArestaPorNos(vector<Aresta> &lista, Vertice& n1, Vertice& n2)
 {
 	for(int i = 0; i < lista.size(); i++)
 		if((lista[i].get_no_1().get_id() == n1.get_id() && lista[i].get_no_2().get_id() == n2.get_id()) || (lista[i].get_no_2().get_id() == n1.get_id() && lista[i].get_no_1().get_id() == n2.get_id()))
 			return &lista[i];
 	return nullptr;
 }
+
+class meuComparador {
+public:
+    int operator() (Vertice* v1, Vertice* v2)
+    {
+        return v1->get_chave() > v2->get_chave();
+    }
+};
 
 Dijkstra::Dijkstra(char** argv)
 {
@@ -51,27 +59,30 @@ int Dijkstra::loadFile(void)
 					pos_i = pos_f;
 				}
 			}
+			Vertice v1;
+			v1.set_id(i);
+			this->vertices.push_back(v1);
 		}
 		
 		for(int i = 0; i < this->qtd_nos; i++)
 		{
-			Vertice v1;
-			v1.set_id(i);
 			for(int j = 0; j < this->qtd_nos; j++)
 			{
 				this->matriz[j][i] = matriz[i][j];
-				Vertice v2;
-				v2.set_id(j);
-				v1.add_adj(v2);
-				Aresta a(v1, v2, this->matriz[i][j]);
-				this->arestas.push_back(a);
+				if(matriz[i][j] != -1)
+				{
+					if(i != j)
+						vertices[i].add_adj(&vertices[j]);
+					if(j > i)
+					{
+						Aresta a(vertices[i], vertices[j], this->matriz[i][j]);
+						this->arestas.push_back(a);
+					}
+				}
 			}
-			this->vertices.push_back(v1);
 		}
-		
 		FILE.close();
-	}
-	
+	}	
 	return 1;
 };
 
@@ -87,59 +98,44 @@ int Dijkstra::saveFile(void)
 	return 1;
 };
 
-void Dijkstra::relaxa(Vertice& u, Vertice& v, Aresta& a)
-{
-	
-};
-
 void Dijkstra::CM_Dijkstra(void)
 {
-	for(int i = 0; i < this->vertices.size(); i++)
-	{
-		this->vertices[i].set_chave(INT32_MAX);
-		this->vertices[i].set_pai(nullptr);
-	}
+	priority_queue < Vertice*, vector<Vertice*>, meuComparador > q;
 	
 	this->vertices[0].set_chave(0);
-	
-	vector<Vertice> s;
-	vector<Vertice> q = this->vertices;
-
-	while(q.size() > 0)
+	q.push(&this->vertices[0]);
+	////INITIALIZE-SINGLE-SOURCE
+	for(int i = 1; i < this->vertices.size(); i++)
 	{
-		/////////extrair mínimo
-		auto min = min_element( q.begin(), q.end(), []( const Vertice &a, const Vertice &b ){return a.get_chave() < b.get_chave();});
-		Vertice u = *min;
-		q.erase(min);
-		/////////extrair mínimo
+		this->vertices[i].set_chave(10000000);
+		this->vertices[i].set_pai(nullptr);
+		q.push(&this->vertices[i]);
+	}
+	////INITIALIZE-SINGLE-SOURCE
+	
+	vector<Vertice*> s;
+
+	while(q.empty() == false)
+	{
+		////EXTRACT-MIN(Q)
+		Vertice* u = q.top();
+		q.pop();
+		////EXTRACT-MIN(Q)
+
 		s.push_back(u);
-		vector<Vertice> adj = u.get_adj();
+		vector<Vertice*> adj = (*u).get_adj();
+
 		for(int i = 0; i < adj.size(); i++)
 		{
-			Vertice* z = buscaVerticePorId(q, adj[i].get_id());
-			if(z != nullptr)
+			Vertice* v = adj[i];
+			Aresta* a = buscaArestaPorNos(this->arestas, *u, *v);
+			if(v->get_chave() > ((*u).get_chave() + a->get_peso()))
 			{
-				Vertice* v = buscaVerticePorId(this->vertices, adj[i].get_id());
-				Aresta* a = buscaArestaPorNos(this->arestas, u, *v);
-				if(a != nullptr)
-				{
-					if(a->get_peso() + u.get_chave() < v->get_chave())
-					{
-						z->set_pai(&u);
-						z->set_chave(a->get_peso() + u.get_chave());
-						v->set_pai(&u);
-						v->set_chave(a->get_peso() + u.get_chave());
-					}
-				}
+				v->set_chave((*u).get_chave() + a->get_peso());
+				v->set_pai(u);
+				make_heap(const_cast<Vertice**>(&q.top()), const_cast<Vertice**>(&q.top()) + q.size(), meuComparador());
 			}
 		}
 	}
-};
-
-void Dijkstra::calcResultado(void)
-{	
-	for(int i = 0; i < this->vertices.size(); i++)
-	{
-		this->resultado += this->vertices[i].get_chave();
-	}
+	this->resultado = this->vertices[this->qtd_nos-1].get_chave();
 };

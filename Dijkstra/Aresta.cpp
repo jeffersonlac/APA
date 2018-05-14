@@ -2,7 +2,7 @@
 
 Aresta::Aresta(){};
 
-Aresta::Aresta(Vertice n1, Vertice n2, int p)
+Aresta::Aresta(Vertice& n1, Vertice& n2, int p)
 {
 	this->no_1 = n1;
 	this->no_2 = n2;
@@ -24,12 +24,12 @@ int Aresta::get_peso(void)
 	return this->peso;
 };
 
-void Aresta::set_no_1(Vertice v)
+void Aresta::set_no_1(Vertice& v)
 {
 	this->no_1 = v;
 };
 
-void Aresta::set_no_2(Vertice v)
+void Aresta::set_no_2(Vertice& v)
 {
 	this->no_2 = v;
 };

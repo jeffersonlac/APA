@@ -1,2 +1,2 @@
 .\dij10.txt
-Resultado: 9228
+Resultado: 270

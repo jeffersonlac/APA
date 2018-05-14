@@ -34,12 +34,12 @@ void Vertice::set_chave(int c)
 	this->chave = c;
 };
 
-vector<Vertice> Vertice::get_adj(void)
+vector<Vertice*> Vertice::get_adj(void)
 {
 	return this->adjacencias;
 };
 
-void Vertice::add_adj(Vertice v)
+void Vertice::add_adj(Vertice* v)
 {
 	this->adjacencias.push_back(v);
 };
