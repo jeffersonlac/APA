@@ -31,7 +31,7 @@ int Kruskal::loadFile(void)
 			linha = "";
 			size_t pos_i = 0, pos_f = 0;
 			getline(FILE, linha);
-			for(int j = this->qtd_nos-1; j >= 0; j--)
+			for(int j = i+1; j < this->qtd_nos; j++)
 			{
 				if(j > i)
 				{
